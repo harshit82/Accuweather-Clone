@@ -1,5 +1,5 @@
-import 'package:accuweather/views/page1.dart';
-import 'package:accuweather/views/page2.dart';
+import 'package:accuweather/ui/views/page1.dart';
+import 'package:accuweather/ui/views/page2.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {

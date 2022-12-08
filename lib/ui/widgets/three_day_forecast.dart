@@ -19,10 +19,12 @@ class ThreeDayForecast extends StatelessWidget {
               ),
               title: Text(
                 "Today; Clear",
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white),
               ),
               trailing: Text(
                 "20\u2103 / 10\u2103",
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -34,10 +36,12 @@ class ThreeDayForecast extends StatelessWidget {
               title: Text(
                 "Tomorrow; Haze",
                 style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
               ),
               trailing: Text(
                 "24\u2103 / 10\u2103",
                 style: TextStyle(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             ListTile(
@@ -47,10 +51,12 @@ class ThreeDayForecast extends StatelessWidget {
               ),
               title: Text(
                 "Tue; Haze",
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white),
               ),
               trailing: Text(
                 "23\u2103 / 8\u2103",
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white),
               ),
             ),

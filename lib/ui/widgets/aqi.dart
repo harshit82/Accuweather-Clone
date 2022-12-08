@@ -35,6 +35,7 @@ class Aqi extends StatelessWidget {
                     width: 8,
                   ),
                   Text(
+                    overflow: TextOverflow.ellipsis,
                     "115",
                     style: TextStyle(
                       fontSize: 20,

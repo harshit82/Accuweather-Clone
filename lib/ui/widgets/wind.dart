@@ -1,10 +1,18 @@
-import 'package:accuweather/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Wind extends StatelessWidget {
-  const Wind({
+import 'package:accuweather/constants/constants.dart';
+
+class WindDetailsWidget extends StatelessWidget {
+  final String temp;
+  final String time;
+  final String windSpeed;
+
+  const WindDetailsWidget({
     Key? key,
+    required this.temp,
+    required this.time,
+    required this.windSpeed,
   }) : super(key: key);
 
   @override
@@ -62,6 +70,7 @@ class WindDetails extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
+          overflow: TextOverflow.ellipsis,
           "$temp $celsius",
           style: const TextStyle(color: Colors.white),
         ),
@@ -79,6 +88,7 @@ class WindDetails extends StatelessWidget {
               size: 12,
             ),
             Text(
+              overflow: TextOverflow.ellipsis,
               "$windSpeed $windSpeedUnit",
               style: const TextStyle(color: Colors.white),
             ),
