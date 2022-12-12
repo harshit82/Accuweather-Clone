@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _url = Uri.parse("https://www.accuweather.com/");
 
 class Aqi extends StatelessWidget {
   const Aqi({
@@ -45,15 +48,20 @@ class Aqi extends StatelessWidget {
                 ],
               ),
               Row(
-                children: const [
-                  Text(
-                    "Full air quality forecast ",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
+                children: [
+                  GestureDetector(
+                    onTap: (() {
+                      _launchInBrowser(_url);
+                    }),
+                    child: const Text(
+                      "Full air quality forecast ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     size: 12,
                     color: Colors.white,
@@ -65,5 +73,14 @@ class Aqi extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 }

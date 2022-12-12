@@ -1,8 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class ThreeDayForecast extends StatelessWidget {
+  final String name;
+  final String min;
+  final String max;
+
   const ThreeDayForecast({
     Key? key,
+    required this.name,
+    required this.min,
+    required this.max,
   }) : super(key: key);
 
   @override
@@ -11,24 +19,24 @@ class ThreeDayForecast extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Column(
-          children: const [
+          children: [
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.sunny,
                 color: Colors.white,
               ),
               title: Text(
-                "Today; Clear",
+                "Today; $name",
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
               trailing: Text(
-                "20\u2103 / 10\u2103",
+                "$max\u2103 / $min\u2103",
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(
                 Icons.cloud,
                 color: Colors.white,
@@ -44,7 +52,7 @@ class ThreeDayForecast extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(
                 Icons.sunny_snowing,
                 color: Colors.white,

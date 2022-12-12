@@ -1,9 +1,21 @@
-import 'package:accuweather/constants/constants.dart';
 import 'package:flutter/material.dart';
 
+import 'package:accuweather/constants/units.dart';
+
 class Details extends StatelessWidget {
+  final String visibility;
+  final String windSpeed;
+  final String humidity;
+  final String pressure;
+  final String clouds;
+
   const Details({
     Key? key,
+    required this.visibility,
+    required this.windSpeed,
+    required this.humidity,
+    required this.pressure,
+    required this.clouds,
   }) : super(key: key);
 
   @override
@@ -29,43 +41,46 @@ class Details extends StatelessWidget {
                 children: [
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Real Feel",
+                      children: [
+                        const Text(
+                          "Visibility",
                           style: TextStyle(color: Colors.white70),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           overflow: TextOverflow.ellipsis,
-                          "20$celsius",
-                          style: TextStyle(color: Colors.white),
+                          visibility,
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        SizedBox(height: 10),
-                        Text(
-                          "Chance of Rain",
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Clouds",
                           style: TextStyle(color: Colors.white70),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           overflow: TextOverflow.ellipsis,
-                          "20%",
-                          style: TextStyle(color: Colors.white),
+                          "$clouds%",
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        SizedBox(height: 10),
-                        Text(
+                        const SizedBox(height: 10),
+                        const Text(
                           overflow: TextOverflow.ellipsis,
                           "Wind speed",
                           style: TextStyle(color: Colors.white70),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           overflow: TextOverflow.ellipsis,
-                          "20 $windSpeedUnit",
-                          style: TextStyle(color: Colors.white),
+                          "$windSpeed $windSpeedUnit",
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ]),
                   const SizedBox(width: 120),
-                  const DetailSubwidget(),
+                  DetailSubwidget(
+                    humidity: humidity,
+                    pressure: pressure,
+                  ),
                 ],
               ),
             ),
@@ -77,43 +92,47 @@ class Details extends StatelessWidget {
 }
 
 class DetailSubwidget extends StatelessWidget {
-  const DetailSubwidget({
+  String humidity;
+  String pressure;
+  DetailSubwidget({
     Key? key,
+    required this.humidity,
+    required this.pressure,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
+      children: [
+        const Text(
           "Humidity",
           style: TextStyle(color: Colors.white70),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           overflow: TextOverflow.ellipsis,
-          "46%",
-          style: TextStyle(color: Colors.white),
+          "$humidity%",
+          style: const TextStyle(color: Colors.white),
         ),
-        SizedBox(height: 10),
-        Text(
+        const SizedBox(height: 10),
+        const Text(
           "Pressure",
           style: TextStyle(color: Colors.white70),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           overflow: TextOverflow.ellipsis,
-          "1017mbar",
-          style: TextStyle(color: Colors.white),
+          "$pressure$pressureUnit",
+          style: const TextStyle(color: Colors.white),
         ),
-        SizedBox(height: 10),
-        Text(
+        const SizedBox(height: 10),
+        const Text(
           "UV Index",
           style: TextStyle(color: Colors.white70),
         ),
-        SizedBox(height: 4),
-        Text(
+        const SizedBox(height: 4),
+        const Text(
           overflow: TextOverflow.ellipsis,
           "4",
           style: TextStyle(color: Colors.white),

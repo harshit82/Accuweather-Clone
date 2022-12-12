@@ -1,3 +1,7 @@
+import 'package:accuweather/constants/climate_images.dart';
+import 'package:accuweather/model/climate_model.dart';
+import 'package:accuweather/services/location.dart';
+import 'package:accuweather/services/parser.dart';
 import 'package:accuweather/ui/views/enter_location.dart';
 import 'package:accuweather/ui/widgets/aqi.dart';
 import 'package:accuweather/ui/widgets/details.dart';
@@ -14,6 +18,50 @@ class Page2 extends StatefulWidget {
 }
 
 class _Page2State extends State<Page2> {
+  ClimateModel climateModel = ClimateModel();
+
+  String cityName = "City Name";
+  String temp = "";
+  String visibility = "";
+  String windSpeed = "";
+  String realFeel = "";
+  String pressure = "";
+  String humidity = "";
+  String name = "";
+  String clouds = "";
+  String max = "";
+  String min = "";
+
+  Future<void> _loadData() async {
+    var decodedJson;
+    try {
+      decodedJson = await Parser().getCityWeather(cityName: "Kolkata");
+    } catch (e) {
+      print(e);
+    }
+    climateModel = ClimateModel.fromJson(decodedJson as Map<String, dynamic>);
+
+    setState(() {
+      cityName = climateModel.name.toString();
+      temp = climateModel.main!.temp.toString();
+      visibility = climateModel.visibility.toString();
+      pressure = climateModel.main!.pressure.toString();
+      humidity = climateModel.main!.humidity.toString();
+      realFeel = climateModel.main!.feelsLike.toString();
+      name = climateModel.weather![0].main.toString();
+      windSpeed = climateModel.wind!.speed.toString();
+      clouds = climateModel.clouds!.all.toString();
+      max = climateModel.main!.tempMax.toString();
+      min = climateModel.main!.tempMin.toString();
+    });
+  }
+
+  @override
+  void initState() {
+    _loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +92,9 @@ class _Page2State extends State<Page2> {
           ]),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/haze.jpg"),
+            image: NetworkImage(ClimateImages().chooseImage(name)),
             fit: BoxFit.cover,
           ),
         ),
@@ -54,23 +102,34 @@ class _Page2State extends State<Page2> {
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           child: Column(children: [
-            SizedBox(height: 200),
+            const SizedBox(height: 200),
             Temperature(
-              aqi: '',
-              temp: '',
+              realFeel: '40',
+              temp: '10',
+              name: '',
             ),
-            SizedBox(height: 100),
-            ThreeDayForecast(),
-            SizedBox(height: 50),
-            WindDetailsWidget(
-              temp: '',
-              time: '',
-              windSpeed: '',
+            const SizedBox(height: 100),
+            ThreeDayForecast(
+              name: '',
+              max: '',
+              min: '',
             ),
-            SizedBox(height: 30),
-            Details(),
-            SizedBox(height: 30),
-            Aqi(),
+            const SizedBox(height: 50),
+            const WindDetailsWidget(
+              temp: '10',
+              time: '2',
+              windSpeed: '4',
+            ),
+            const SizedBox(height: 30),
+            Details(
+              humidity: '3',
+              pressure: '23',
+              visibility: '12',
+              windSpeed: '4',
+              clouds: '',
+            ),
+            const SizedBox(height: 30),
+            const Aqi(),
           ]),
         ),
       ),

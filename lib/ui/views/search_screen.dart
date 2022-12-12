@@ -1,4 +1,4 @@
-import 'package:accuweather/presenter.dart';
+import 'package:accuweather/services/parser.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -40,8 +40,7 @@ class SearchTextField extends StatelessWidget {
                       suffixIcon: GestureDetector(
                         onTap: (() async {
                           searchText = textEditingController.text;
-                          await Presenter()
-                              .getWeatherData(cityName: searchText);
+                          await Parser().getCityWeather(cityName: searchText);
                         }),
                         child: const Icon(
                           Icons.arrow_forward,

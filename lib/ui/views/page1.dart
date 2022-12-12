@@ -1,9 +1,13 @@
+import 'package:accuweather/constants/climate_images.dart';
+import 'package:accuweather/model/climate_model.dart';
+import 'package:accuweather/services/parser.dart';
 import 'package:accuweather/ui/views/enter_location.dart';
 import 'package:accuweather/ui/widgets/aqi.dart';
 import 'package:accuweather/ui/widgets/details.dart';
 import 'package:accuweather/ui/widgets/temp._widget.dart';
 import 'package:accuweather/ui/widgets/three_day_forecast.dart';
 import 'package:accuweather/ui/widgets/wind.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Page1 extends StatefulWidget {
@@ -13,25 +17,58 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
-  // late Animation animation;
-  // late AnimationController animationController;
+class _Page1State extends State<Page1> {
+  ClimateModel climateModel = ClimateModel();
+
+  String cityName = "City Name";
+  String temp = "";
+  String visibility = "";
+  String windSpeed = "";
+  String realFeel = "";
+  String pressure = "";
+  String humidity = "";
+  String name = "";
+  String clouds = "";
+  String max = "";
+  String min = "";
+
+  Future<void> _loadData() async {
+    // ignore: prefer_typing_uninitialized_variables
+    var decodedJson;
+    try {
+      decodedJson = await Parser().getCityWeather(cityName: "Chennai");
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+    climateModel = ClimateModel.fromJson(decodedJson as Map<String, dynamic>);
+
+    setState(() {
+      cityName = climateModel.name.toString();
+      temp = climateModel.main!.temp.toString();
+      visibility = climateModel.visibility.toString();
+      pressure = climateModel.main!.pressure.toString();
+      humidity = climateModel.main!.humidity.toString();
+      realFeel = climateModel.main!.feelsLike.toString();
+      name = climateModel.weather![0].main.toString();
+      windSpeed = climateModel.wind!.speed.toString();
+      clouds = climateModel.clouds!.all.toString();
+      max = climateModel.main!.tempMax.toString();
+      min = climateModel.main!.tempMin.toString();
+    });
+  }
 
   @override
   void initState() {
-    // animationController =
-    //     AnimationController(vsync: this, duration: const Duration(seconds: 2));
-
-    // animation.addStatusListener((status) {
-    //   print(status);
-    // });
+    _loadData();
     super.initState();
-    // Presenter().getWeatherData(cityName: "RAnchi");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -43,65 +80,67 @@ class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
                   MaterialPageRoute(
                       builder: (context) => const EnterLocation()));
             }),
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.add),
           ),
           centerTitle: true,
-          title: const Text(
-            "City Name",
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.white,
-            ),
+          title: Text(
+            cityName,
+            style: const TextStyle(fontSize: 22),
           ),
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(Icons.settings, color: Colors.white),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: GestureDetector(
+                onTap: (() {
+                  _loadData();
+                }),
+                child: const Icon(Icons.settings),
+              ),
             ),
           ]),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/haze.jpg"),
+            image: NetworkImage(ClimateImages().chooseImage(name)),
             fit: BoxFit.cover,
           ),
         ),
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
-          child: Column(
-            children: [
-              const SizedBox(height: 200),
-              const Temperature(
-                aqi: '',
-                temp: '',
-              ),
-              const SizedBox(height: 100),
-              const ThreeDayForecast(),
-              const SizedBox(height: 50),
-              const WindDetailsWidget(
-                temp: '',
-                time: '',
-                windSpeed: '',
-              ),
-              const SizedBox(height: 30),
-              const Details(),
-              const SizedBox(height: 30),
-              const Aqi(),
-            ],
-          ),
+          child: Column(children: [
+            const SizedBox(height: 200),
+            Temperature(
+              realFeel: realFeel,
+              temp: temp,
+              name: name,
+            ),
+            const SizedBox(height: 100),
+            ThreeDayForecast(
+              name: name,
+              max: max,
+              min: min,
+            ),
+            const SizedBox(height: 50),
+            WindDetailsWidget(
+              temp: temp,
+              time: '',
+              windSpeed: windSpeed,
+            ),
+            const SizedBox(height: 30),
+            Details(
+              humidity: humidity,
+              pressure: pressure,
+              visibility: visibility,
+              windSpeed: windSpeed,
+              clouds: clouds,
+            ),
+            const SizedBox(height: 30),
+            const Aqi(),
+          ]),
         ),
       ),
     );
   }
-
-  // @override
-  // void dispose() {
-  //   animationController.dispose();
-  //   super.dispose();
-  // }
 }

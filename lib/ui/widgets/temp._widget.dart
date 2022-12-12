@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'package:accuweather/constants/constants.dart';
+import 'package:accuweather/constants/units.dart';
 
-class Temperature extends StatefulWidget {
+class Temperature extends StatelessWidget {
   final String temp;
-  final String aqi;
+  final String realFeel;
+  final String name;
 
   const Temperature({
     Key? key,
     required this.temp,
-    required this.aqi,
+    required this.realFeel,
+    required this.name,
   }) : super(key: key);
 
-  @override
-  State<Temperature> createState() => _TemperatureState();
-}
-
-class _TemperatureState extends State<Temperature> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -26,8 +23,8 @@ class _TemperatureState extends State<Temperature> {
             children: [
               const SizedBox(width: 35),
               Text(
-                widget.temp, // \u2103 for centigrade
-                style: const TextStyle(fontSize: 120, color: Colors.white70),
+                temp, // \u2103 for centigrade
+                style: const TextStyle(fontSize: 100, color: Colors.white70),
                 overflow: TextOverflow.ellipsis,
               ),
               const Text(
@@ -37,9 +34,9 @@ class _TemperatureState extends State<Temperature> {
               ),
             ],
           ),
-          const Text(
-            "Haze",
-            style: TextStyle(fontSize: 25, color: Colors.white70),
+          Text(
+            name,
+            style: const TextStyle(fontSize: 25, color: Colors.white70),
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(
@@ -53,18 +50,20 @@ class _TemperatureState extends State<Temperature> {
                   color: Colors.white70),
               child: Padding(
                 padding: const EdgeInsets.all(6),
-                child: Wrap(
+                child: Column(
                   children: [
-                    const Icon(
-                      Icons.masks,
-                      color: Colors.grey,
-                      size: 15,
+                    const Text(
+                      "Real feel",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                      ),
                     ),
                     const SizedBox(
                       width: 8,
                     ),
                     Text(
-                      "AQI ${widget.aqi}",
+                      "$realFeel $celsius",
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.grey,

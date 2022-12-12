@@ -2,8 +2,8 @@ import 'package:accuweather/constants/api_details.dart';
 import 'package:accuweather/services/location.dart';
 import 'package:accuweather/services/networking.dart';
 
-class Fetcher {
-  Future<dynamic> getCityWeather(String cityName) async {
+class Parser {
+  Future<dynamic> getCityWeather({required String cityName}) async {
     try {
       cityName = cityName.toLowerCase();
       var url = "$openWeatherMapUrl?q=$cityName&appid=$apiKey&units=metric";

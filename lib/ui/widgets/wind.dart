@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:accuweather/constants/constants.dart';
+import 'package:accuweather/constants/units.dart';
 
 class WindDetailsWidget extends StatelessWidget {
   final String temp;

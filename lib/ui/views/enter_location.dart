@@ -1,4 +1,4 @@
-import 'package:accuweather/constants/constants.dart';
+import 'package:accuweather/constants/units.dart';
 import 'package:accuweather/ui/views/search_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -35,41 +35,58 @@ class EnterLocation extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              //const SearchBar(),
               const SearchBar(),
               const SizedBox(height: 10),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 8,
-                child: ListTile(
-                  contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  tileColor: Colors.blueGrey[800],
-                  isThreeLine: true,
-                  title: const Text(
-                    "City Name",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
-                  subtitle: const Text(
-                    "AQI 187 26$celsius / 9$celsius",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 15,
-                    ),
-                  ),
-                  trailing: const Text(
-                    "26$celsius",
-                    style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              const CityTile(),
+              const SizedBox(height: 10),
+              const CityTile(),
+              const SizedBox(height: 10),
+              const CityTile(),
+              const SizedBox(height: 10),
+              const CityTile(),
+              const SizedBox(height: 10),
+              const CityTile(),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CityTile extends StatelessWidget {
+  const CityTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 8,
+      child: ListTile(
+        contentPadding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        tileColor: Colors.blueGrey[800],
+        isThreeLine: true,
+        title: const Text(
+          "City Name",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
+        subtitle: const Text(
+          "AQI 187 26$celsius / 9$celsius",
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 15,
+          ),
+        ),
+        trailing: const Text(
+          "26$celsius",
+          style: TextStyle(
+            fontSize: 40,
+            color: Colors.white,
           ),
         ),
       ),
