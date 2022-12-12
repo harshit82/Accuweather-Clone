@@ -1,18 +1,21 @@
+import 'package:accuweather/constants/units/temperature_units.dart';
+import 'package:accuweather/constants/units/wind_units.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:accuweather/constants/units.dart';
+import 'package:weather_icons/weather_icons.dart';
+import 'package:accuweather/constants/units/pressure_units.dart';
 
 class WindDetailsWidget extends StatelessWidget {
   final String temp;
   final String time;
   final String windSpeed;
+  final IconData icon;
 
   const WindDetailsWidget({
     Key? key,
     required this.temp,
     required this.time,
     required this.windSpeed,
+    required this.icon,
   }) : super(key: key);
 
   @override
@@ -22,26 +25,30 @@ class WindDetailsWidget extends StatelessWidget {
       color: Colors.transparent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           WindDetails(
-            temp: '12.5',
+            temp: temp,
             time: 'Now',
-            windSpeed: '10.2',
+            windSpeed: windSpeed,
+            icon: icon,
           ),
           WindDetails(
             temp: '13',
             time: '11:07',
             windSpeed: '15.3',
+            icon: icon,
           ),
           WindDetails(
             temp: '17.8',
             time: '22:00',
             windSpeed: '13.7',
+            icon: icon,
           ),
           WindDetails(
             temp: '24',
             time: '01:08',
             windSpeed: '45.8',
+            icon: icon,
           ),
         ],
       ),
@@ -53,11 +60,13 @@ class WindDetails extends StatelessWidget {
   final String temp;
   final String time;
   final String windSpeed;
+  final IconData icon;
   const WindDetails(
       {Key? key,
       required this.temp,
       required this.time,
-      required this.windSpeed})
+      required this.windSpeed,
+      required this.icon})
       : super(key: key);
 
   @override
@@ -75,21 +84,21 @@ class WindDetails extends StatelessWidget {
           style: const TextStyle(color: Colors.white),
         ),
         const SizedBox(height: 4),
-        const Icon(
-          Icons.sunny_snowing,
+        Icon(
+          icon,
           color: Colors.white,
         ),
         const SizedBox(height: 4),
         Wrap(
           children: [
-            const FaIcon(
-              FontAwesomeIcons.locationArrow,
+            const Icon(
+              WeatherIcons.wind_direction,
               color: Colors.white,
               size: 12,
             ),
             Text(
               overflow: TextOverflow.ellipsis,
-              "$windSpeed $windSpeedUnit",
+              "$windSpeed $kPerH",
               style: const TextStyle(color: Colors.white),
             ),
           ],

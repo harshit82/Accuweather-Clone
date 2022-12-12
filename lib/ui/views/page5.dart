@@ -12,14 +12,14 @@ import 'package:accuweather/ui/widgets/wind.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Page1 extends StatefulWidget {
-  const Page1({super.key});
+class Page5 extends StatefulWidget {
+  const Page5({super.key});
 
   @override
-  State<Page1> createState() => _Page1State();
+  State<Page5> createState() => _Page5State();
 }
 
-class _Page1State extends State<Page1> {
+class _Page5State extends State<Page5> {
   ClimateModel climateModel = ClimateModel();
 
   String cityName = "City Name";
@@ -39,7 +39,7 @@ class _Page1State extends State<Page1> {
     // ignore: prefer_typing_uninitialized_variables
     var decodedJson;
     try {
-      decodedJson = await Parser().getCityWeather(cityName: "Delhi");
+      decodedJson = await Parser().getCityWeather(cityName: "Goa");
     } catch (e) {
       if (kDebugMode) {
         print(e);

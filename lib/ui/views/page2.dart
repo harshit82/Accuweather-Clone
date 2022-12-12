@@ -1,8 +1,9 @@
 import 'package:accuweather/constants/climate_images.dart';
+import 'package:accuweather/constants/climate_icons.dart';
 import 'package:accuweather/model/climate_model.dart';
-import 'package:accuweather/services/location.dart';
 import 'package:accuweather/services/parser.dart';
 import 'package:accuweather/ui/views/enter_location.dart';
+import 'package:accuweather/ui/views/settings.dart';
 import 'package:accuweather/ui/widgets/aqi.dart';
 import 'package:accuweather/ui/widgets/details.dart';
 import 'package:accuweather/ui/widgets/temp._widget.dart';
@@ -30,12 +31,13 @@ class _Page2State extends State<Page2> {
   String name = "";
   String clouds = "";
   String max = "";
+  String windDegree = "";
   String min = "";
 
   Future<void> _loadData() async {
     var decodedJson;
     try {
-      decodedJson = await Parser().getCityWeather(cityName: "Kolkata");
+      decodedJson = await Parser().getCityWeather(cityName: "Mumbai");
     } catch (e) {
       print(e);
     }
@@ -53,6 +55,7 @@ class _Page2State extends State<Page2> {
       clouds = climateModel.clouds!.all.toString();
       max = climateModel.main!.tempMax.toString();
       min = climateModel.main!.tempMin.toString();
+      windDegree = climateModel.wind!.deg.toString();
     });
   }
 
@@ -80,14 +83,22 @@ class _Page2State extends State<Page2> {
             child: const Icon(Icons.add),
           ),
           centerTitle: true,
-          title: const Text(
-            "City Name",
-            style: TextStyle(fontSize: 22),
+          title: Text(
+            cityName,
+            style: const TextStyle(fontSize: 22),
           ),
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(Icons.settings),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: GestureDetector(
+                child: const Icon(Icons.settings),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Settings()));
+                },
+              ),
             ),
           ]),
       body: Container(
@@ -104,29 +115,31 @@ class _Page2State extends State<Page2> {
           child: Column(children: [
             const SizedBox(height: 200),
             Temperature(
-              realFeel: '40',
-              temp: '10',
-              name: '',
+              realFeel: realFeel,
+              temp: temp,
+              name: name,
             ),
             const SizedBox(height: 100),
             ThreeDayForecast(
-              name: '',
-              max: '',
-              min: '',
+              name: name,
+              max: max,
+              min: min,
             ),
             const SizedBox(height: 50),
-            const WindDetailsWidget(
-              temp: '10',
+            WindDetailsWidget(
+              temp: temp,
               time: '2',
-              windSpeed: '4',
+              windSpeed: windSpeed,
+              icon: ClimateIcons().chooseIcon(name),
             ),
             const SizedBox(height: 30),
             Details(
-              humidity: '3',
-              pressure: '23',
-              visibility: '12',
-              windSpeed: '4',
-              clouds: '',
+              humidity: humidity,
+              pressure: pressure,
+              visibility: visibility,
+              windSpeed: windSpeed,
+              clouds: clouds,
+              windDegree: windDegree,
             ),
             const SizedBox(height: 30),
             const Aqi(),

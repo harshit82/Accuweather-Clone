@@ -1,6 +1,7 @@
+import 'package:accuweather/constants/units/temperature_units.dart';
 import 'package:flutter/material.dart';
 
-import 'package:accuweather/constants/units.dart';
+import 'package:accuweather/constants/units/pressure_units.dart';
 
 class Temperature extends StatelessWidget {
   final String temp;

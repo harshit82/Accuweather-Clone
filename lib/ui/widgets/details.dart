@@ -1,6 +1,6 @@
+import 'package:accuweather/constants/units/wind_units.dart';
 import 'package:flutter/material.dart';
-
-import 'package:accuweather/constants/units.dart';
+import 'package:accuweather/constants/units/pressure_units.dart';
 
 class Details extends StatelessWidget {
   final String visibility;
@@ -8,6 +8,7 @@ class Details extends StatelessWidget {
   final String humidity;
   final String pressure;
   final String clouds;
+  final String windDegree;
 
   const Details({
     Key? key,
@@ -16,6 +17,7 @@ class Details extends StatelessWidget {
     required this.humidity,
     required this.pressure,
     required this.clouds,
+    required this.windDegree,
   }) : super(key: key);
 
   @override
@@ -72,7 +74,7 @@ class Details extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           overflow: TextOverflow.ellipsis,
-                          "$windSpeed $windSpeedUnit",
+                          "$windSpeed $kPerH",
                           style: const TextStyle(color: Colors.white),
                         ),
                       ]),
@@ -80,6 +82,7 @@ class Details extends StatelessWidget {
                   DetailSubwidget(
                     humidity: humidity,
                     pressure: pressure,
+                    windDegree: windDegree,
                   ),
                 ],
               ),
@@ -92,12 +95,14 @@ class Details extends StatelessWidget {
 }
 
 class DetailSubwidget extends StatelessWidget {
-  String humidity;
-  String pressure;
-  DetailSubwidget({
+  final String humidity;
+  final String pressure;
+  final String windDegree;
+  const DetailSubwidget({
     Key? key,
     required this.humidity,
     required this.pressure,
+    required this.windDegree,
   }) : super(key: key);
 
   @override
@@ -123,19 +128,19 @@ class DetailSubwidget extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           overflow: TextOverflow.ellipsis,
-          "$pressure$pressureUnit",
+          "$pressure$mBar",
           style: const TextStyle(color: Colors.white),
         ),
         const SizedBox(height: 10),
         const Text(
-          "UV Index",
+          "Wind degree",
           style: TextStyle(color: Colors.white70),
         ),
         const SizedBox(height: 4),
-        const Text(
+        Text(
           overflow: TextOverflow.ellipsis,
-          "4",
-          style: TextStyle(color: Colors.white),
+          windDegree,
+          style: const TextStyle(color: Colors.white),
         ),
       ],
     );

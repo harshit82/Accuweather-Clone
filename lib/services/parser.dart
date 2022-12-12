@@ -2,6 +2,11 @@ import 'package:accuweather/constants/api_details.dart';
 import 'package:accuweather/services/location.dart';
 import 'package:accuweather/services/networking.dart';
 
+///Units:
+///1. Standard
+///2. Metric
+///3. Imperial
+
 class Parser {
   Future<dynamic> getCityWeather({required String cityName}) async {
     try {

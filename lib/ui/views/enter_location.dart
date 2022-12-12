@@ -1,4 +1,5 @@
-import 'package:accuweather/constants/units.dart';
+import 'package:accuweather/constants/units/temperature_units.dart';
+import 'package:accuweather/constants/units/pressure_units.dart';
 import 'package:accuweather/ui/views/search_screen.dart';
 import 'package:flutter/material.dart';
 
