@@ -1,16 +1,7 @@
-# accuweather
+# Accuweather Clone
 
-A new Flutter project.
+This project is a Flutter based clone of the accuweather app.
 
-## Getting Started
+For project structure [see](https://github.com/harshit82/Accuweather-Clone/blob/master/lib/project_structure.md)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For learnings and errors while making this project [see](https://github.com/harshit82/Accuweather-Clone/blob/master/lib/errors_and_learnings.md)
