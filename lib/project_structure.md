@@ -1,11 +1,25 @@
+### Directory Structure
+```
+lib/
+|--model/
+|--services/
+|--constants/
+  |--units/
+|--ui/
+  |--view/
+  |--widgets/
+ 
+```
 ### Project Tree
+```
 main
-|
-|--> home
-        |
-        |--> Page1
-        |--> Page2
-
+|--home
+  |--Page1
+  |--Page2
+  |--Page3
+  |--Page4
+  |--Page5
+```
 ### View Structure
 
 Both Pages1 and Page2 in the view has same structure.

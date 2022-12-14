@@ -1,16 +1,16 @@
-# accuweather
+# Accuweather Clone
 
-A new Flutter project.
+This project is a Flutter based clone of the accuweather app.
 
-## Getting Started
+This application uses [OpenWeatherMap API](https://openweathermap.org/api).
 
-This project is a starting point for a Flutter application.
+To use this application:
+1. Clone this repo to your local machine
+2. Sign up to [OpenWeatherMap](https://openweathermap.org/) and generate your own api key
+3. Add the key [here](https://github.com/harshit82/Accuweather-Clone/blob/master/lib/constants/api_details.dart) or under the api_details.dart file in the apiKey variable
+4. Make sure to install Flutter SDK and other dependencies before executing this proejct.
+5. Use command ```flutter run``` to run this project via the terminal
 
-A few resources to get you started if this is your first Flutter project:
+- [Project structure](https://github.com/harshit82/Accuweather-Clone/blob/master/lib/project_structure.md)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Learnings and Errors I made while making this project](https://github.com/harshit82/Accuweather-Clone/blob/master/lib/errors_and_learnings.md)
