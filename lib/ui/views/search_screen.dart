@@ -22,7 +22,7 @@ class SearchTextField extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Wrap(children: [
+              Row(children: [
                 Container(
                   width: MediaQuery.of(context).size.width / 1.3,
                   decoration: BoxDecoration(
@@ -40,7 +40,17 @@ class SearchTextField extends StatelessWidget {
                       suffixIcon: GestureDetector(
                         onTap: (() async {
                           searchText = textEditingController.text;
-                          await Parser().getCityWeather(cityName: searchText);
+                          await Parser()
+                              .getCityWeather(cityName: searchText)
+                              .then((value) {
+                            if (value == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Incorrect City Name")));
+                            } else {
+                              // TODO: pass and navigate this data to the weather screen pages
+                            }
+                          });
                         }),
                         child: const Icon(
                           Icons.arrow_forward,
@@ -53,6 +63,9 @@ class SearchTextField extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.01,
+                ),
                 TextButton(
                     onPressed: () {
                       textEditingController.text = "";
@@ -64,7 +77,57 @@ class SearchTextField extends StatelessWidget {
                 "Popular cities",
                 style: TextStyle(color: Colors.grey),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Wrap(
+                children: const [
+                  PopularCities(cityName: "Delhi"),
+                  PopularCities(cityName: "Mumbai"),
+                  PopularCities(cityName: "Chennai"),
+                  PopularCities(cityName: "Kolkata"),
+                  PopularCities(cityName: "Bangalore"),
+                  PopularCities(cityName: "Visakhapatnam"),
+                  PopularCities(cityName: "Indore"),
+                  PopularCities(cityName: "Guwahati"),
+                  PopularCities(cityName: "Lucknow"),
+                  PopularCities(cityName: "Hyderabad"),
+                  PopularCities(cityName: "Kanpur"),
+                  PopularCities(cityName: "Patna"),
+                  PopularCities(cityName: "Varanasi"),
+                  PopularCities(cityName: "Srinagar"),
+                  PopularCities(cityName: "Nellore"),
+                  PopularCities(cityName: "Bhopal"),
+                  PopularCities(cityName: "Thiruvananthapuram"),
+                  PopularCities(cityName: "Goa"),
+                ],
+              ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PopularCities extends StatelessWidget {
+  final String cityName;
+  const PopularCities({super.key, required this.cityName});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        await Parser().getCityWeather(cityName: cityName);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: Colors.grey[200]),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(cityName),
           ),
         ),
       ),

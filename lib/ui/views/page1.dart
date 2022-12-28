@@ -39,7 +39,8 @@ class _Page1State extends State<Page1> {
     // ignore: prefer_typing_uninitialized_variables
     var decodedJson;
     try {
-      decodedJson = await Parser().getCityWeather(cityName: "Delhi");
+      //decodedJson = await Parser().getCityWeather(cityName: "Delhi");
+      decodedJson = await Parser().getLocationWeather();
     } catch (e) {
       if (kDebugMode) {
         print(e);

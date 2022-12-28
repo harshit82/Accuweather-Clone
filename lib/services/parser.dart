@@ -1,6 +1,7 @@
 import 'package:accuweather/constants/api_details.dart';
 import 'package:accuweather/services/location.dart';
 import 'package:accuweather/services/networking.dart';
+import 'package:geolocator/geolocator.dart';
 
 ///Units:
 ///1. Standard
@@ -23,11 +24,9 @@ class Parser {
 
   Future<dynamic> getLocationWeather() async {
     try {
-      Location location = Location();
-      await location.getCurrentLocation();
-
+      Position position = await Location().getCurrentLocation();
       var url =
-          "$openWeatherMapUrl?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric";
+          "$openWeatherMapUrl?lat=${position.latitude}&lon=${position.longitude}&appid=$apiKey&units=metric";
       NetworkHelper networkHelper = NetworkHelper(url: url);
       var weatherData = await networkHelper.getData();
       print(weatherData);
